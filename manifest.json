@@ -1,0 +1,41 @@
+{
+  "name": "gopeed-extension-animedl",
+  "author": "user",
+  "title": "Anime Batch Downloader",
+  "description": "Download anime batch dari file JSON (Archive.org)",
+  "icon": "",
+  "version": "1.0.0",
+  "homepage": "",
+  "repository": {
+    "url": ""
+  },
+  "scripts": [
+    {
+      "event": "onResolve",
+      "match": {
+        "urls": [
+          "*://archive.org/download/*",
+          "*://raw.githubusercontent.com/*.json",
+          "*://*.json"
+        ]
+      },
+      "entry": "index.js"
+    }
+  ],
+  "settings": [
+    {
+      "name": "json_url",
+      "title": "URL File JSON",
+      "description": "URL langsung ke file links_stage_X.json di GitHub raw",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "name": "save_dir",
+      "title": "Nama Folder Penyimpanan",
+      "description": "Nama folder untuk menyimpan episode",
+      "type": "string",
+      "value": "Initial D"
+    }
+  ]
+}
