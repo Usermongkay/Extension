@@ -1,0 +1,34 @@
+name: Deobfuscate
+on: workflow_dispatch
+
+jobs:
+  deob:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install tools
+        run: |
+          npm install -g @synchrony/synchrony
+          npm install -g webcrack
+      
+      - name: Run Synchrony
+        run: synchrony deobfuscate player.js -o player_synchrony.js
+        continue-on-error: true
+      
+      - name: Run Webcrack
+        run: webcrack player.js -o player_webcrack.js
+        continue-on-error: true
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: deobfuscated
+          path: |
+            player_synchrony.js
+            player_webcrack.js
